@@ -1,0 +1,24 @@
+# Cloudflare Pages project config.
+#
+# The D1 binding below is the only thing that must exist for the forms to work.
+# Everything else (Turnstile, Resend, KV rate limiting) is optional and is set
+# as a secret or variable in the Cloudflare dashboard — see DEPLOY.md.
+
+name = "my-health-scanner"
+pages_build_output_dir = "public"
+compatibility_date = "2026-01-15"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mhs-prelaunch"
+# Replace with the id printed by `npx wrangler d1 create mhs-prelaunch`.
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# Optional: KV namespace used for rate limiting and single-use captcha tokens.
+# Create it with `npx wrangler kv namespace create RATE_LIMIT`, then uncomment.
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+# Public, non-secret values only. Secrets go in the dashboard or `wrangler secret put`.

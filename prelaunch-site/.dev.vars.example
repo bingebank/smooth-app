@@ -1,0 +1,22 @@
+# Copy to .dev.vars for local development (`npm run dev`). Never commit .dev.vars.
+
+# Signs the built-in arithmetic challenge. Generate with:
+#   openssl rand -base64 32
+CAPTCHA_SECRET=""
+
+# Cloudflare Turnstile (https://dash.cloudflare.com -> Turnstile). Leave both
+# blank to use the built-in challenge instead.
+TURNSTILE_SITE_KEY=""
+TURNSTILE_SECRET_KEY=""
+
+# Set to "1" only if you must keep accepting the built-in challenge for visitors
+# whose browsers block Turnstile. Weakens the captcha for everyone.
+CAPTCHA_ALLOW_FALLBACK=""
+
+# Optional email via Resend (https://resend.com).
+RESEND_API_KEY=""
+MAIL_FROM="My Health Scanner <hello@myhealthscanner.com>"
+NOTIFY_EMAIL="hello@myhealthscanner.com"
+
+# Bearer token for GET /api/export. Generate with: openssl rand -hex 32
+ADMIN_TOKEN=""
