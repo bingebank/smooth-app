@@ -261,72 +261,21 @@
 
 /* ─────────── scanner screen ─────────── */
 .pv-scan{flex:1; position:relative; overflow:hidden;
-  background:
-    radial-gradient(60px 60px at 18% 22%, rgba(255,231,180,.22), transparent 70%),
-    radial-gradient(90px 90px at 82% 16%, rgba(255,231,180,.14), transparent 70%),
-    radial-gradient(70px 70px at 70% 78%, rgba(120,190,160,.14), transparent 70%),
-    linear-gradient(#1D3229,#0E1A15);
+  background:#0E1A15 url('/assets/scan-view.jpg') center/cover no-repeat;
 }
 .pv-scan__shelf{position:absolute; left:0; right:0; height:1px; background:rgba(255,255,255,.07)}
-/* A jar of almond butter on the shelf: ridged lid, glass body with the nut
-   butter visible through it, and a printed label carrying the barcode the
-   scanner is aiming at. Drawn, so it stays sharp at any size. */
-.pv-scan__jar{position:absolute; left:50%; top:47%; transform:translate(-50%,-50%);
-  width:158px; height:206px; filter:drop-shadow(0 12px 22px rgba(0,0,0,.45))}
-
-.pv-scan__jar .lid{position:absolute; top:0; left:21px; right:21px; height:28px;
-  border-radius:7px 7px 3px 3px;
-  background:
-    repeating-linear-gradient(90deg, rgba(0,0,0,.20) 0 1px, rgba(255,255,255,.07) 1px 4px),
-    linear-gradient(#8A6636,#5E4120 62%,#412C13);
-  box-shadow:inset 0 -2px 3px rgba(0,0,0,.45), inset 0 2px 2px rgba(255,255,255,.18);
-}
-.pv-scan__jar .ring{position:absolute; top:26px; left:14px; right:14px; height:9px;
-  border-radius:4px; background:linear-gradient(#6E4E28,#4A3218)}
-
-/* glass body */
-.pv-scan__jar .glass{position:absolute; top:33px; left:0; right:0; bottom:0;
-  border-radius:16px 16px 22px 22px;
-  background:linear-gradient(100deg,#E8D9C0 0 5%,#CBA972 12%,#B98C4C 34%,#A2742F 68%,#8A5E22 100%);
-  box-shadow:inset 0 -6px 10px rgba(0,0,0,.28), inset 0 3px 6px rgba(255,255,255,.22);
-  overflow:hidden;
-}
-/* the highlight down the left of the glass */
-.pv-scan__jar .glass::before{content:""; position:absolute; top:8px; bottom:14px; left:9px; width:13px;
-  border-radius:8px; background:linear-gradient(rgba(255,255,255,.42),rgba(255,255,255,.05))}
-
-/* printed label */
-.pv-scan__jar .label{position:absolute; left:13px; right:13px; top:52px; bottom:12px;
-  border-radius:4px; background:linear-gradient(#FCF6EA,#F0E5CF);
-  box-shadow:0 2px 4px rgba(0,0,0,.22); padding:8px 8px 6px;
-  display:flex; flex-direction:column; align-items:center; text-align:center;
-  font-family:"Inter",system-ui,sans-serif; color:#3A2A14;
-}
-.pv-scan__jar .label .mark{flex:none; width:15px; height:15px; margin-bottom:3px; fill:#2A6349}
-.pv-scan__jar .label .brand{flex:none; font-size:6.5px; font-weight:700; letter-spacing:.14em; color:#7A6136}
-.pv-scan__jar .label .name{flex:none; font-family:"Fraunces",Georgia,serif; font-size:12px; font-weight:600;
-  line-height:1.12; margin-top:3px; color:#2E2313}
-.pv-scan__jar .label .net{flex:none; font-size:6px; letter-spacing:.06em; color:#8A7448; margin-top:3px}
-.pv-scan__jar .label .rule{width:34px; height:1px; background:#CBBB95; margin:5px 0 auto}
-
-/* the barcode the scanner is reading */
-.pv-scan__jar .code{flex:none; width:100%; background:#fff; border-radius:2px; padding:3px 4px 2px;
-  box-shadow:0 0 0 1px rgba(0,0,0,.07)}
-.pv-scan__jar .code i{display:block; height:20px;
-  background:repeating-linear-gradient(90deg,
-    #111 0 1.5px, transparent 1.5px 3px, #111 3px 4px, transparent 4px 6.5px,
-    #111 6.5px 9px, transparent 9px 10px, #111 10px 11px, transparent 11px 13.5px);
-}
-.pv-scan__jar .code span{display:block; font-size:5.5px; letter-spacing:.16em; color:#111; margin-top:1px}
-
-.pv-scan__frame{position:absolute; left:46px; right:46px; top:38%; height:150px}
+.pv-scan__frame{position:absolute; left:52px; right:52px; top:63%; height:122px}
 .pv-scan__frame i{position:absolute; width:30px; height:30px; border:3px solid var(--s-mint-500)}
 .pv-scan__frame i:nth-child(1){top:0; left:0; border-right:0; border-bottom:0; border-radius:8px 0 0 0}
 .pv-scan__frame i:nth-child(2){top:0; right:0; border-left:0; border-bottom:0; border-radius:0 8px 0 0}
 .pv-scan__frame i:nth-child(3){bottom:0; left:0; border-right:0; border-top:0; border-radius:0 0 0 8px}
 .pv-scan__frame i:nth-child(4){bottom:0; right:0; border-left:0; border-top:0; border-radius:0 0 8px 0}
-.pv-scan__hint{position:absolute; left:0; right:0; bottom:118px; text-align:center;
-  color:#fff; font-size:14px; line-height:1.4; text-shadow:0 1px 6px rgba(0,0,0,.5)}
+/* A scrim pill, the way camera apps do it — the viewfinder behind it can be
+   any brightness, so plain text with a shadow is not reliable. */
+.pv-scan__hint{position:absolute; left:50%; transform:translateX(-50%); top:13%;
+  text-align:center; color:#fff; font-size:13.5px; line-height:1.35; font-weight:500;
+  background:rgba(8,16,13,.62); backdrop-filter:blur(6px);
+  padding:9px 18px; border-radius:16px; white-space:nowrap;}
 .pv-scan__bar{position:absolute; left:0; right:0; bottom:0; height:104px;
   background:rgba(8,16,13,.72); backdrop-filter:blur(8px);
   display:flex; align-items:center; justify-content:space-around; padding-bottom:16px}
