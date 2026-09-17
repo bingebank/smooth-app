@@ -5,14 +5,14 @@ renewal costs you at GoDaddy.
 
 ---
 
-## Why Cloudflare Pages
+## Why Cloudflare Workers
 
 You need static hosting *plus* somewhere to receive form posts and store emails.
 That second half is what makes most "free" tiers stop being free.
 
 | Option | Static hosting | Form backend | Realistic monthly cost |
 |---|---|---|---|
-| **Cloudflare Pages** ← recommended | Free, unlimited bandwidth | Functions 100k req/day + D1 database, both free | **$0** |
+| **Cloudflare Workers** ← recommended | Free, static assets unmetered | 100k Worker req/day + D1 database, both free | **$0** |
 | GitHub Pages | Free | None — needs a paid form service | $0 + $10–19 |
 | Netlify | Free, 100 GB/mo | Netlify Forms: 100 submissions/mo, then $19/mo | $0 → $19 |
 | Vercel | Free (Hobby) | Functions free, but **Hobby forbids commercial use** | $20 (Pro) |
@@ -55,35 +55,36 @@ npm run db:init
 npm run deploy
 ```
 
-Wrangler prints a URL like `https://my-health-scanner.pages.dev`. Open it — the
-site is live and the forms already work.
+Wrangler prints a URL like `https://my-health-scanner.<subdomain>.workers.dev`.
+Open it — the site is live and the forms already work.
 
 ### Or: deploy from GitHub instead
 
 If you'd rather not run anything locally, connect the repository and Cloudflare
-builds on every push. You still need step 1 done first — **the D1 database must
-exist and its real id must be committed in `wrangler.toml`**. Pages reads that
-file and validates the bindings, so a build against the
-`REPLACE_WITH_YOUR_D1_DATABASE_ID` placeholder fails before it starts.
+builds on every push. Step 1 must be done first — **the D1 database has to exist
+and its real id has to be committed in `wrangler.toml`**, because the build
+validates the bindings in that file before it starts.
 
-**Workers & Pages → Create → Pages → Connect to Git**, pick the repository, then:
+In the dashboard: **Workers & Pages → Create → Workers → Connect to Git** (the
+"Import a repository" path), pick the repository, then:
 
 | Setting | Value |
 |---|---|
-| Production branch | the branch holding `prelaunch-site/` |
-| Framework preset | None |
+| Branch | the branch holding `prelaunch-site/` |
 | Build command | *(leave empty)* |
+| Deploy command | `npx wrangler deploy` |
 | Root directory | `prelaunch-site` |
-| Build output directory | `public` |
 
-**Build output directory is relative to the root directory** — `public`, not
-`prelaunch-site/public`. Getting this wrong is the usual cause of a build that
-succeeds and then serves a 404. `wrangler.toml` already sets
-`pages_build_output_dir = "public"`, which takes precedence if the two disagree.
+**Leave Build command empty.** There is no build step — the site is plain HTML.
+Whatever goes in that box is executed by `/bin/sh`, so a branch name pasted there
+fails with `not found`, which is not an obvious error message.
 
-Every push to the production branch then redeploys, and pull requests get their
-own preview URL. Secrets are still set in the dashboard (step 4) — they are
-never committed.
+**Root directory must be `prelaunch-site`**, not `/`. Left at `/`, the build
+looks at the repository root, finds no `wrangler.toml`, and reports
+`No build output detected`.
+
+Every push to that branch then redeploys. Secrets are still set in the dashboard
+(step 4) — they are never committed.
 
 ## Step 3 — Point the GoDaddy domain at it
 
@@ -124,8 +125,8 @@ never committed.
    nameservers, remove any others, and save. GoDaddy will ask you to confirm.
 5. Back in Cloudflare, click **Check nameservers now**. Activation usually takes
    a few minutes; GoDaddy quotes up to 48 hours.
-6. Once the domain is active: **Workers & Pages → your project → Custom domains
-   → Set up a custom domain**. Add both:
+6. Once the domain is active: **Workers & Pages → your project → Settings →
+   Domains & Routes → Add**. Add both:
    - `myhealthscanner.com`
    - `www.myhealthscanner.com`
 
@@ -151,10 +152,10 @@ forwarding — slower, and it breaks HTTPS on the apex. Move the nameservers.
 
 ```bash
 # Signs the fallback CAPTCHA. Required.
-openssl rand -base64 32 | npx wrangler pages secret put CAPTCHA_SECRET
+openssl rand -base64 32 | npx wrangler secret put CAPTCHA_SECRET
 
 # Lets you download the list as CSV. Recommended.
-openssl rand -hex 32 | npx wrangler pages secret put ADMIN_TOKEN
+openssl rand -hex 32 | npx wrangler secret put ADMIN_TOKEN
 ```
 
 Save both somewhere safe — Cloudflare will not show them to you again.
@@ -182,7 +183,8 @@ reused within their 10-minute window.
 npx wrangler kv namespace create RATE_LIMIT
 ```
 
-Uncomment the `[[kv_namespaces]]` block in `wrangler.toml`, paste in the id, and
+Or create it in the dashboard under **Storage & Databases → KV**. Either way,
+uncomment the `[[kv_namespaces]]` block in `wrangler.toml`, paste in the id, and
 redeploy.
 
 ## Step 7 — Email (optional)
@@ -196,7 +198,7 @@ hear about them without checking, and that people get a confirmation.
 3. Set the variables:
 
 ```bash
-npx wrangler pages secret put RESEND_API_KEY
+npx wrangler secret put RESEND_API_KEY
 # then, as plaintext variables in the dashboard:
 #   MAIL_FROM     = My Health Scanner <hello@myhealthscanner.com>
 #   NOTIFY_EMAIL  = hello@myhealthscanner.com
@@ -237,7 +239,7 @@ blocked (ad blocker, corporate filter). Either accept it, or set
 `CAPTCHA_ALLOW_FALLBACK=1` to let those visitors use the arithmetic challenge.
 
 **Sign-ups succeed but no email arrives** — email is best-effort and never fails
-the request. Check `npx wrangler pages deployment tail` for `resend failed`; the
+the request. Check `npx wrangler tail` for `resend failed`; the
 sign-up is in D1 regardless.
 
 **Site still shows GoDaddy's parking page** — nameservers haven't propagated.

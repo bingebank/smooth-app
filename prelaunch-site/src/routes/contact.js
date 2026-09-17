@@ -49,7 +49,3 @@ export async function onRequestPost({ request, env }) {
 
   return ok(SUCCESS);
 }
-
-/** Anything other than POST gets a straight 405 rather than the static site. */
-export const onRequest = ({ request, next }) =>
-  request.method === 'POST' ? next() : fail('Method not allowed.', 405);

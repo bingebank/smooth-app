@@ -3,9 +3,9 @@
 The landing page for **myhealthscanner.com**: product story, email capture with a
 CAPTCHA, a contact form, and contact details.
 
-Static HTML/CSS/JS with no build step, plus four small Cloudflare Pages Functions
-for the form handling. **Running cost: $0/month** — see [DEPLOY.md](DEPLOY.md) for
-why, and for connecting the GoDaddy domain.
+Static HTML/CSS/JS with no build step, served by a Cloudflare Worker that also
+handles the five `/api/*` routes behind the forms. **Running cost: $0/month** —
+see [DEPLOY.md](DEPLOY.md) for why, and for connecting the GoDaddy domain.
 
 ---
 
@@ -24,12 +24,14 @@ prelaunch-site/
 │   └── assets/
 │       ├── logo.svg, favicon.svg
 │       └── screens/           ← the nine app screens, cropped from the mockups
-├── functions/api/             ← Cloudflare Pages Functions (the backend)
-│   ├── config.js              ← GET  tells the page which captcha to render
-│   ├── challenge.js           ← GET  issues a signed fallback challenge
-│   ├── subscribe.js           ← POST early-access sign-up
-│   ├── contact.js             ← POST contact message
-│   └── export.js              ← GET  CSV export (bearer-token protected)
+├── src/
+│   ├── index.js               ← Worker entry: routes /api/*, assets handle the rest
+│   └── routes/
+│       ├── config.js          ← GET  tells the page which captcha to render
+│       ├── challenge.js       ← GET  issues a signed fallback challenge
+│       ├── subscribe.js       ← POST early-access sign-up
+│       ├── contact.js         ← POST contact message
+│       └── export.js          ← GET  CSV export (bearer-token protected)
 ├── lib/                       ← shared server code
 │   ├── http.js                ← responses, validation, rate limiting
 │   ├── captcha.js             ← Turnstile + signed-challenge verification
@@ -48,8 +50,15 @@ npm run db:init:local              # create the tables in the local D1
 npm run dev                        # http://127.0.0.1:8788
 ```
 
-`npm run dev` serves the real Functions against a local SQLite-backed D1, so the
-forms behave exactly as they will in production.
+`npm run dev` runs the real Worker against a local SQLite-backed D1, so the forms
+behave exactly as they will in production.
+
+### A note on URLs
+
+Cloudflare's asset handler serves `privacy.html` at `/privacy` and redirects the
+`.html` form to it. Links and `sitemap.xml` therefore use the extensionless form.
+Turning that off (`html_handling = "none"`) would also stop `/` resolving to
+`index.html`, which is why it is left at the default.
 
 ## How the CAPTCHA works
 

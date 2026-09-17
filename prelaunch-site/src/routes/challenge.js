@@ -12,7 +12,3 @@ export async function onRequestGet({ request, env }) {
   const { question, token } = await issueChallenge(env, ip);
   return json({ question, token });
 }
-
-/** Anything other than GET gets a straight 405 rather than the static site. */
-export const onRequest = ({ request, next }) =>
-  request.method === 'GET' ? next() : fail('Method not allowed.', 405);
