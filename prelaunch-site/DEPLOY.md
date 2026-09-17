@@ -58,15 +58,32 @@ npm run deploy
 Wrangler prints a URL like `https://my-health-scanner.pages.dev`. Open it — the
 site is live and the forms already work.
 
-> **Prefer deploys on `git push`?** In the Cloudflare dashboard go to
-> **Workers & Pages → Create → Pages → Connect to Git**, pick the repository, and
-> set:
-> - Build command: *(leave empty)*
-> - Build output directory: `prelaunch-site/public`
-> - Root directory: `prelaunch-site`
->
-> Every push to the production branch then redeploys automatically, and pull
-> requests get their own preview URL.
+### Or: deploy from GitHub instead
+
+If you'd rather not run anything locally, connect the repository and Cloudflare
+builds on every push. You still need step 1 done first — **the D1 database must
+exist and its real id must be committed in `wrangler.toml`**. Pages reads that
+file and validates the bindings, so a build against the
+`REPLACE_WITH_YOUR_D1_DATABASE_ID` placeholder fails before it starts.
+
+**Workers & Pages → Create → Pages → Connect to Git**, pick the repository, then:
+
+| Setting | Value |
+|---|---|
+| Production branch | the branch holding `prelaunch-site/` |
+| Framework preset | None |
+| Build command | *(leave empty)* |
+| Root directory | `prelaunch-site` |
+| Build output directory | `public` |
+
+**Build output directory is relative to the root directory** — `public`, not
+`prelaunch-site/public`. Getting this wrong is the usual cause of a build that
+succeeds and then serves a 404. `wrangler.toml` already sets
+`pages_build_output_dir = "public"`, which takes precedence if the two disagree.
+
+Every push to the production branch then redeploys, and pull requests get their
+own preview URL. Secrets are still set in the dashboard (step 4) — they are
+never committed.
 
 ## Step 3 — Point the GoDaddy domain at it
 
