@@ -1,0 +1,335 @@
+/* ============================================================
+   My Health Scanner — app screen components
+   ------------------------------------------------------------
+   The screens on this page are real markup, not screenshots, so
+   they stay sharp at any pixel density.
+
+   Canvas is 375 x 812 — iOS logical pixels. Every value below is
+   a Flutter logical pixel, so these port to the app 1:1 rather
+   than needing to be re-derived. Values come from
+   design/tokens.json; keep the two in step.
+
+   Scale a screen by setting --pv-scale on the .pvw wrapper.
+   ============================================================ */
+
+:root{
+  /* palette — mirrors design/tokens.json */
+  --s-green-900:#143A2B;
+  --s-green-800:#1A4534;
+  --s-green-700:#204C3B;
+  --s-green-600:#2A6349;
+  --s-mint-500:#63C7A6;
+  --s-mint-300:#9BDCC2;
+  --s-mint-100:#E3F4EC;
+  --s-cream:#F8F8F3;
+  --s-cream-2:#F1F3EA;
+  --s-surface:#fff;
+  --s-line:#E2E6DC;
+  --s-ink:#17291F;
+  --s-ink-2:#4A5A50;
+  --s-ink-3:#7B8981;
+  --s-gold:#D9A03C;
+  --s-gold-100:#FBF1DD;
+  --s-gold-ink:#8A6218;
+  --s-rose:#C0453F;
+  --s-rose-100:#FBEAE9;
+  --s-good:#2A9D6E;
+  --s-fair:#E0A33A;
+  --s-track:#EDF1EC;
+
+  --s-card:0 1px 2px rgba(20,58,43,.05), 0 4px 12px rgba(20,58,43,.06);
+}
+
+/* ─────────── device wrapper & canvas ─────────── */
+
+/* The wrapper reserves the scaled footprint; the canvas is scaled inside it. */
+.pvw{
+  --pv-scale:.62;
+  width:calc(375px * var(--pv-scale));
+  height:calc(812px * var(--pv-scale));
+  flex:none;
+  position:relative;
+}
+.pvw--short{ height:calc(600px * var(--pv-scale)); }
+
+.pv{
+  position:absolute; top:0; left:0;
+  width:375px; height:812px;
+  transform:scale(var(--pv-scale));
+  transform-origin:0 0;
+  background:var(--s-cream);
+  border-radius:44px;
+  overflow:hidden;
+  border:1px solid var(--s-line);
+  box-shadow:0 8px 24px rgba(20,58,43,.10), 0 32px 70px rgba(20,58,43,.13);
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  color:var(--s-ink);
+  display:flex; flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+  text-align:left;
+}
+.pv *{box-sizing:border-box}
+.pv--dark{background:#10201A}
+
+/* ─────────── status bar ─────────── */
+.pv__status{
+  height:44px; flex:none;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 26px 0 30px;
+  font-size:15px; font-weight:600; letter-spacing:-.01em;
+}
+.pv__status-icons{display:flex; align-items:center; gap:5px}
+.pv__status-icons svg{display:block; fill:currentColor}
+.pv--dark .pv__status{color:#fff}
+
+/* ─────────── nav bar ─────────── */
+.pv__nav{
+  height:52px; flex:none;
+  display:flex; align-items:center; gap:12px;
+  padding:0 20px;
+}
+.pv__back{width:24px; height:24px; flex:none; fill:none; stroke:var(--s-green-700); stroke-width:2.2;
+  stroke-linecap:round; stroke-linejoin:round}
+.pv__nav-title{font-size:17px; font-weight:600; color:var(--s-green-900); flex:1}
+.pv__nav-title--center{text-align:center; margin-right:24px}
+.pv--dark .pv__nav-title{color:#fff}
+
+/* ─────────── body ─────────── */
+.pv__body{flex:1; min-height:0; padding:0 20px 20px; overflow:hidden}
+.pv__body--flush{padding:0}
+.pv__foot{flex:none; padding:12px 20px 28px}
+
+.pv h4{font-size:16px; font-weight:600; color:var(--s-green-900); margin:0 0 8px}
+.pv p{margin:0}
+
+/* ─────────── card ─────────── */
+.pv-card{
+  background:var(--s-surface); border:1px solid var(--s-line);
+  border-radius:16px; padding:14px; box-shadow:var(--s-card);
+}
+.pv-card + .pv-card{margin-top:10px}
+
+/* ─────────── product header ─────────── */
+.pv-product{display:flex; align-items:center; gap:12px}
+.pv-product__name{font-size:15px; font-weight:600; color:var(--s-green-900)}
+.pv-product__brand{font-size:13px; color:var(--s-ink-3); margin-top:2px}
+
+/* A jar, drawn rather than photographed. */
+.pv-jar{width:44px; height:54px; flex:none; position:relative}
+.pv-jar__lid{position:absolute; top:0; left:7px; right:7px; height:10px; border-radius:4px 4px 2px 2px;
+  background:linear-gradient(#7A5630,#4A2F16); box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}
+.pv-jar__body{position:absolute; top:8px; left:1px; right:1px; bottom:0;
+  border-radius:7px 7px 10px 10px;
+  background:
+    linear-gradient(105deg, rgba(255,255,255,.34) 0 14%, rgba(255,255,255,0) 32%),
+    linear-gradient(#C48A44,#A2652C 55%,#7E4A1C);
+  box-shadow:inset 0 -3px 5px rgba(0,0,0,.18);
+}
+.pv-jar__label{position:absolute; left:4px; right:4px; bottom:7px; height:22px; border-radius:4px;
+  background:linear-gradient(#FBF4E6,#EFE3CC);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+  box-shadow:0 1px 2px rgba(0,0,0,.14)}
+.pv-jar__label span{width:18px; height:3px; border-radius:2px; background:var(--s-green-600); opacity:.6}
+.pv-jar__label span:last-child{width:11px; opacity:.32}
+.pv-jar--lg{width:58px; height:70px}
+
+/* ─────────── score rings ─────────── */
+.pv-scores{display:flex; align-items:stretch; margin:2px 0 0}
+.pv-score{flex:1; text-align:center}
+.pv-score + .pv-score{border-left:1px solid var(--s-line)}
+.pv-score__label{font-size:13px; font-weight:500; color:var(--s-ink-2); margin-bottom:8px}
+.pv-ring{width:88px; height:88px; margin:0 auto; position:relative}
+.pv-ring svg{width:100%; height:100%; transform:rotate(-90deg)}
+.pv-ring circle{fill:none; stroke-width:8; stroke-linecap:round}
+.pv-ring__track{stroke:var(--s-track)}
+.pv-ring__txt{position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; line-height:1}
+.pv-ring__num{font-size:28px; font-weight:600; letter-spacing:-.02em}
+.pv-ring__den{font-size:11px; color:var(--s-ink-3); margin-top:2px}
+.pv-score__verdict{font-size:13px; font-weight:500; margin-top:8px}
+
+/* ─────────── chips ─────────── */
+.pv-chips{display:flex; flex-wrap:wrap; gap:8px}
+.pv-chip{
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:12px; font-weight:600; line-height:1;
+  padding:7px 11px; border-radius:999px; white-space:nowrap;
+}
+.pv-chip svg{width:13px; height:13px; flex:none}
+.pv-chip--safe{background:var(--s-mint-100); color:var(--s-green-700)}
+.pv-chip--limit{background:var(--s-gold-100); color:var(--s-gold-ink)}
+.pv-chip--avoid{background:var(--s-rose-100); color:var(--s-rose)}
+.pv-chip--plain{background:var(--s-cream-2); color:var(--s-ink-2)}
+
+/* ─────────── rows ─────────── */
+.pv-row{
+  display:flex; align-items:center; gap:10px;
+  padding:8px 0; border-bottom:1px solid var(--s-line);
+  font-size:14px;
+}
+.pv-row:last-child{border-bottom:0}
+.pv-row__icon{width:22px; height:22px; flex:none; border-radius:50%;
+  background:var(--s-mint-100); display:flex; align-items:center; justify-content:center}
+.pv-row__icon svg{width:13px; height:13px; fill:none; stroke:var(--s-green-600); stroke-width:1.9;
+  stroke-linecap:round; stroke-linejoin:round}
+.pv-row__icon--limit{background:var(--s-gold-100)}
+.pv-row__icon--limit svg{stroke:var(--s-gold-ink)}
+.pv-row__label{flex:1; color:var(--s-ink-2)}
+.pv-row__value{font-weight:600; color:var(--s-green-900)}
+.pv-row__chev{width:14px; height:14px; flex:none; fill:none; stroke:var(--s-ink-3);
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+
+/* ─────────── alert banner ─────────── */
+.pv-alert{display:flex; align-items:flex-start; gap:12px; padding:14px; border-radius:16px}
+.pv-alert--avoid{background:var(--s-rose-100)}
+.pv-alert--limit{background:var(--s-gold-100)}
+.pv-alert__dot{width:32px; height:32px; flex:none; border-radius:50%;
+  display:flex; align-items:center; justify-content:center}
+.pv-alert--avoid .pv-alert__dot{background:#F3C8C6}
+.pv-alert--limit .pv-alert__dot{background:#F0DEB4}
+.pv-alert__dot svg{width:17px; height:17px; fill:none; stroke-width:2.4; stroke-linecap:round}
+.pv-alert--avoid .pv-alert__dot svg{stroke:var(--s-rose)}
+.pv-alert--limit .pv-alert__dot svg{stroke:var(--s-gold-ink)}
+.pv-alert__title{font-size:15px; font-weight:600}
+.pv-alert--avoid .pv-alert__title{color:var(--s-rose)}
+.pv-alert--limit .pv-alert__title{color:var(--s-gold-ink)}
+.pv-alert__sub{font-size:13px; color:var(--s-ink-2); margin-top:3px}
+
+/* ─────────── buttons ─────────── */
+.pv-btn{
+  display:flex; align-items:center; justify-content:center;
+  height:52px; border-radius:26px;
+  background:var(--s-green-700); color:#fff;
+  font-size:16px; font-weight:600;
+}
+.pv-btn--ghost{background:transparent; color:var(--s-green-600); height:auto; font-size:14px; font-weight:500}
+.pv-btn--outline{background:var(--s-surface); color:var(--s-ink); border:1.5px solid var(--s-line);
+  font-size:15px; gap:10px; justify-content:flex-start; padding:0 16px}
+.pv-btn--outline svg{width:18px; height:18px; flex:none}
+
+/* ─────────── legend ─────────── */
+.pv-legend{display:flex; justify-content:space-around; align-items:center;
+  border-top:1px solid var(--s-line); padding-top:14px}
+.pv-legend div{display:flex; align-items:center; gap:6px; font-size:13px; font-weight:500}
+.pv-legend .d{width:10px; height:10px; border-radius:50%}
+
+/* ─────────── form fields ─────────── */
+.pv-field{margin-bottom:14px}
+.pv-field__label{font-size:13px; font-weight:600; color:var(--s-green-800); margin-bottom:6px}
+.pv-input{height:46px; border:1.5px solid var(--s-line); border-radius:12px; background:var(--s-surface);
+  display:flex; align-items:center; padding:0 14px; font-size:15px; color:var(--s-ink-3); gap:10px}
+.pv-input svg{width:18px; height:18px; flex:none; fill:none; stroke:var(--s-ink-3); stroke-width:1.7;
+  stroke-linecap:round; stroke-linejoin:round}
+.pv-seg{display:flex; gap:6px}
+.pv-seg span{flex:1; height:40px; border-radius:10px; background:var(--s-cream-2);
+  display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:500; color:var(--s-ink-2)}
+.pv-seg span.is-on{background:var(--s-mint-100); color:var(--s-green-700); font-weight:600;
+  box-shadow:inset 0 0 0 1.5px var(--s-mint-500)}
+
+/* ─────────── checklist ─────────── */
+.pv-check{display:flex; align-items:center; gap:10px; padding:9px 0; font-size:14px}
+.pv-check__box{width:20px; height:20px; flex:none; border-radius:50%;
+  border:1.5px solid var(--s-line); background:var(--s-surface)}
+.pv-check__box--on{background:var(--s-green-600); border-color:var(--s-green-600);
+  display:flex; align-items:center; justify-content:center}
+.pv-check__box--on svg{width:11px; height:11px; fill:none; stroke:#fff; stroke-width:2.6;
+  stroke-linecap:round; stroke-linejoin:round}
+.pv-check__name{flex:1; color:var(--s-ink-2)}
+.pv-check__name--done{color:var(--s-ink-3)}
+.pv-group{font-size:13px; font-weight:600; color:var(--s-green-800); margin:12px 0 2px}
+.pv-group:first-child{margin-top:0}
+.pv-swap{font-size:11px; font-weight:600; color:var(--s-green-700); background:var(--s-mint-100);
+  padding:4px 8px; border-radius:999px; white-space:nowrap}
+
+/* ─────────── totals bar ─────────── */
+.pv-total{display:flex; align-items:center; gap:12px; border-top:1px solid var(--s-line); padding-top:14px}
+.pv-total__label{font-size:13px; color:var(--s-ink-3)}
+.pv-total__value{font-size:18px; font-weight:600; color:var(--s-green-900); flex:1}
+.pv-total .pv-btn{height:42px; border-radius:21px; padding:0 20px; font-size:14px}
+
+/* ─────────── welcome / brand screen ─────────── */
+.pv-welcome{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:0 32px; position:relative}
+.pv-welcome__mark{width:76px; height:76px; margin-bottom:20px}
+.pv-welcome__name{font-family:"Fraunces",Georgia,serif; font-size:30px; font-weight:600;
+  color:var(--s-green-800); letter-spacing:-.02em}
+.pv-welcome__tag{font-size:14px; color:var(--s-ink-2); margin-top:8px}
+.pv-leaves{position:absolute; inset:auto 0 0 0; height:300px; overflow:hidden; pointer-events:none}
+.pv-leaves svg{position:absolute; fill:var(--s-mint-500)}
+.pv-welcome__mark{position:relative; z-index:1}
+.pv-welcome__name,.pv-welcome__tag{position:relative; z-index:1}
+
+/* ─────────── scanner screen ─────────── */
+.pv-scan{flex:1; position:relative; overflow:hidden;
+  background:
+    radial-gradient(60px 60px at 18% 22%, rgba(255,231,180,.22), transparent 70%),
+    radial-gradient(90px 90px at 82% 16%, rgba(255,231,180,.14), transparent 70%),
+    radial-gradient(70px 70px at 70% 78%, rgba(120,190,160,.14), transparent 70%),
+    linear-gradient(#1D3229,#0E1A15);
+}
+.pv-scan__shelf{position:absolute; left:0; right:0; height:1px; background:rgba(255,255,255,.07)}
+.pv-scan__bottle{position:absolute; left:50%; top:46%; transform:translate(-50%,-50%);
+  width:118px; height:190px}
+.pv-scan__bottle .neck{position:absolute; left:50%; transform:translateX(-50%); top:0;
+  width:40px; height:34px; border-radius:6px 6px 0 0; background:linear-gradient(#7A5227,#5C3A17)}
+.pv-scan__bottle .body{position:absolute; inset:28px 0 0 0; border-radius:14px;
+  background:linear-gradient(150deg,#B9793A,#8E5522 55%,#6E3F17)}
+.pv-scan__barcode{position:absolute; left:14px; right:14px; bottom:26px; height:52px;
+  background:#F6F1E7; border-radius:3px; padding:7px 9px; display:flex; flex-direction:column; gap:4px}
+.pv-scan__bars{flex:1; background:repeating-linear-gradient(90deg,
+  #1A1A1A 0 2px, transparent 2px 4px, #1A1A1A 4px 5px, transparent 5px 9px,
+  #1A1A1A 9px 12px, transparent 12px 14px);}
+.pv-scan__digits{font-size:8px; letter-spacing:.22em; color:#1A1A1A; text-align:center}
+.pv-scan__frame{position:absolute; left:40px; right:40px; top:34%; height:170px}
+.pv-scan__frame i{position:absolute; width:30px; height:30px; border:3px solid var(--s-mint-500)}
+.pv-scan__frame i:nth-child(1){top:0; left:0; border-right:0; border-bottom:0; border-radius:8px 0 0 0}
+.pv-scan__frame i:nth-child(2){top:0; right:0; border-left:0; border-bottom:0; border-radius:0 8px 0 0}
+.pv-scan__frame i:nth-child(3){bottom:0; left:0; border-right:0; border-top:0; border-radius:0 0 0 8px}
+.pv-scan__frame i:nth-child(4){bottom:0; right:0; border-left:0; border-top:0; border-radius:0 0 8px 0}
+.pv-scan__hint{position:absolute; left:0; right:0; bottom:118px; text-align:center;
+  color:#fff; font-size:14px; line-height:1.4; text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.pv-scan__bar{position:absolute; left:0; right:0; bottom:0; height:104px;
+  background:rgba(8,16,13,.72); backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:space-around; padding-bottom:16px}
+.pv-scan__shutter{width:62px; height:62px; border-radius:50%; background:var(--s-mint-500);
+  box-shadow:0 0 0 4px rgba(255,255,255,.18)}
+.pv-scan__tool{width:34px; height:34px; border-radius:9px; background:rgba(255,255,255,.14);
+  display:flex; align-items:center; justify-content:center}
+.pv-scan__tool svg{width:18px; height:18px; fill:none; stroke:#fff; stroke-width:1.8;
+  stroke-linecap:round; stroke-linejoin:round}
+
+/* ─────────── mission screen ─────────── */
+.pv-mission{text-align:center; padding-top:8px}
+.pv-mission__badge{width:76px; height:76px; margin:0 auto 18px; border-radius:50%;
+  background:var(--s-mint-100); display:flex; align-items:center; justify-content:center}
+.pv-mission__badge svg{width:38px; height:38px; fill:none; stroke:var(--s-green-700);
+  stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.pv-mission__title{font-family:"Fraunces",Georgia,serif; font-size:24px; font-weight:600;
+  color:var(--s-green-900); line-height:1.2}
+.pv-mission__sub{font-size:14px; color:var(--s-ink-2); margin-top:8px}
+.pv-pickers{display:flex; gap:10px; margin-top:22px; text-align:left}
+.pv-pickers > div{flex:1}
+
+/* ─────────── audit screen ─────────── */
+.pv-audit{display:flex; align-items:flex-start; gap:12px; background:var(--s-rose-100);
+  border-radius:16px; padding:14px}
+.pv-audit__icon{width:34px; height:34px; flex:none; border-radius:50%; background:#F3C8C6;
+  display:flex; align-items:center; justify-content:center}
+.pv-audit__icon svg{width:19px; height:19px; fill:none; stroke:var(--s-rose); stroke-width:1.9;
+  stroke-linecap:round; stroke-linejoin:round}
+.pv-audit__title{font-size:16px; font-weight:600; color:var(--s-rose)}
+.pv-audit__sub{font-size:13px; color:var(--s-ink-2); margin-top:3px; line-height:1.45}
+.pv-finding{display:flex; align-items:flex-start; gap:10px; padding:9px 0; font-size:13px}
+.pv-finding__dot{width:22px; height:22px; flex:none; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; margin-top:1px}
+.pv-finding__dot svg{width:12px; height:12px; fill:none; stroke-width:2.4; stroke-linecap:round}
+.pv-finding--ok .pv-finding__dot{background:var(--s-mint-100)}
+.pv-finding--ok .pv-finding__dot svg{stroke:var(--s-green-600)}
+.pv-finding--bad .pv-finding__dot{background:var(--s-rose-100)}
+.pv-finding--bad .pv-finding__dot svg{stroke:var(--s-rose)}
+.pv-finding--swap .pv-finding__dot{background:var(--s-mint-100)}
+.pv-finding--swap .pv-finding__dot svg{stroke:var(--s-green-600)}
+.pv-finding strong{display:block; font-weight:600; color:var(--s-green-900); font-size:14px}
+.pv-finding span{color:var(--s-ink-2); line-height:1.45}
+.pv-bullet{font-size:13px; color:var(--s-ink-2); padding-left:32px; line-height:1.7}
+.pv-bullet b{color:var(--s-rose); font-weight:500}
