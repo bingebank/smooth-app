@@ -443,7 +443,7 @@ a.ccard:hover{border-color:var(--mint-500); transform:translateY(-2px); box-shad
 .scanband{
   background:linear-gradient(165deg,var(--green-800),var(--green-900));
   color:rgba(255,255,255,.82);
-  padding:96px 0; position:relative; overflow:hidden;
+  padding:88px 0; position:relative; overflow:hidden;
 }
 .scanband::before{
   content:""; position:absolute; width:620px; height:620px; right:-180px; top:-260px;
@@ -471,13 +471,9 @@ a.ccard:hover{border-color:var(--mint-500); transform:translateY(-2px); box-shad
 
 .scanband__art{position:relative; display:flex; justify-content:center; align-items:center; margin:0}
 .scanband__art img{
-  position:relative; z-index:2; width:100%; max-width:420px; height:auto;
-  border-radius:26px;
-  /* the mockup carries its own store background, so a soft edge stops it
-     reading as a bright rectangle pasted onto the dark band */
-  box-shadow:0 30px 70px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.07);
-  -webkit-mask-image:radial-gradient(130% 120% at 50% 45%, #000 62%, rgba(0,0,0,.35) 100%);
-          mask-image:radial-gradient(130% 120% at 50% 45%, #000 62%, rgba(0,0,0,.35) 100%);
+  position:relative; z-index:2; width:100%; max-width:460px; height:auto;
+  border-radius:22px;
+  box-shadow:0 30px 70px rgba(0,0,0,.48), 0 0 0 1px rgba(255,255,255,.08);
 }
 /* a soft scan sweep behind the phone */
 .scanband__beam{
@@ -490,9 +486,9 @@ a.ccard:hover{border-color:var(--mint-500); transform:translateY(-2px); box-shad
   .scanband{padding:72px 0}
   .scanband__grid{grid-template-columns:1fr; gap:44px}
   .scanband__art{order:-1}
-  .scanband__art img{max-width:340px}
+  .scanband__art img{max-width:400px}
 }
 @media (max-width:560px){
-  .scanband__art img{max-width:290px}
+  .scanband__art img{max-width:320px}
   .scanband__unlocks{gap:18px}
 }
