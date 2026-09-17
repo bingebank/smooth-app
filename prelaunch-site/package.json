@@ -2,7 +2,7 @@
   "name": "my-health-scanner-prelaunch",
   "private": true,
   "version": "1.0.0",
-  "description": "Pre-launch site for My Health Scanner — Cloudflare Pages + Functions.",
+  "description": "Pre-launch site for My Health Scanner \u2014 Cloudflare Pages + Functions.",
   "type": "module",
   "scripts": {
     "dev": "wrangler pages dev public --d1=DB --kv=RATE_LIMIT --local",
@@ -10,7 +10,9 @@
     "db:init": "wrangler d1 execute mhs-prelaunch --remote --file=./schema.sql",
     "db:init:local": "wrangler d1 execute mhs-prelaunch --local --file=./schema.sql",
     "subscribers": "wrangler d1 execute mhs-prelaunch --remote --command \"SELECT created_at, email, name, platform FROM subscribers ORDER BY created_at DESC LIMIT 50\"",
-    "deploy": "wrangler pages deploy public"
+    "deploy": "wrangler pages deploy public",
+    "set-domain": "node scripts/set-domain.mjs",
+    "csp-hash": "node scripts/csp-hash.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.20.0"

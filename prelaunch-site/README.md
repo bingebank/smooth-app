@@ -84,6 +84,21 @@ curl -H "authorization: Bearer $ADMIN_TOKEN" \
      "https://myhealthscanner.com/api/export?table=messages" -o messages.csv
 ```
 
+## Changing the domain
+
+The domain is baked into the canonical URL, OG tags, JSON-LD, sitemap, robots.txt
+and the `hello@`/`press@` addresses. One command keeps them in step:
+
+```bash
+npm run set-domain -- yourdomain.com --dry-run   # show what would change
+npm run set-domain -- yourdomain.com             # do it
+```
+
+It also refreshes the Content-Security-Policy hash in `public/_headers`, which
+covers the inline JSON-LD block. That hash matters: if it drifts, the browser
+blocks the structured data silently — the page looks fine and you just lose the
+rich search result. If you hand-edit the JSON-LD, run `npm run csp-hash`.
+
 ## Environment variables
 
 Only `CAPTCHA_SECRET` and the `DB` binding are required. Everything else adds a

@@ -70,6 +70,21 @@ site is live and the forms already work.
 
 ## Step 3 — Point the GoDaddy domain at it
 
+> ### First: is the domain actually registered?
+> Cloudflare's **Add a site** silently refuses domains that don't exist in the
+> registry, and the error it shows doesn't say so. Check before you start:
+>
+> ```bash
+> dig NS myhealthscanner.com +short          # should list nameservers
+> curl -sI https://rdap.org/domain/myhealthscanner.com | head -1
+> ```
+>
+> No nameservers, or an RDAP `404`, means the domain isn't registered — buy it
+> first. An expired domain past its redemption window looks identical.
+>
+> If the name you end up with differs from the one baked into the site, run
+> `npm run set-domain -- yourdomain.com` before deploying.
+
 > ### ⚠️ Read this first if you have email on myhealthscanner.com
 > Changing nameservers moves **all** DNS for the domain, including mail. If email
 > for this domain is running anywhere — GoDaddy Microsoft 365, Google Workspace,
