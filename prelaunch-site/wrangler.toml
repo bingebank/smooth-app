@@ -13,6 +13,11 @@ name = "my-health-scanner"
 main = "src/index.js"
 compatibility_date = "2026-01-15"
 
+# Serve on <name>.<subdomain>.workers.dev. A project created through the
+# dashboard's Workers Builds flow does not always enable this, which leaves the
+# deploy succeeding with nothing reachable at the preview URL.
+workers_dev = true
+
 [assets]
 directory = "public"
 # Default html_handling serves /privacy for privacy.html and redirects the .html
