@@ -149,7 +149,7 @@ def welcome():
     return f'''<div class="pv">{STATUS}
   <div class="pv-welcome">
     <img class="pv-welcome__mark" src="/assets/logo.svg" alt="" width="76" height="76">
-    <div class="pv-welcome__name">My Health Scanner</div>
+    <div class="pv-welcome__name">MyHealth<span>Scanner</span></div>
     <div class="pv-welcome__tag">Better Choices. Healthier You.</div>
     <div class="pv-leaves" aria-hidden="true">
       <svg width="200" height="200" viewBox="0 0 64 64" style="left:-46px;bottom:-34px;opacity:.20;transform:rotate(20deg)"><path d="M32 4 C52 16 56 35 32 60 C8 35 12 16 32 4 Z"/></svg>
