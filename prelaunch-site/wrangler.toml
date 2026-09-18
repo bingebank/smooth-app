@@ -1,0 +1,46 @@
+# Cloudflare Worker config.
+#
+# The site is a Worker with static assets: everything in public/ is served by
+# Cloudflare's asset handler, and only unmatched paths (the /api/* routes) reach
+# src/index.js. Cloudflare is winding Pages down in favour of this shape, and
+# it is what the dashboard's "Connect to Git" flow now creates.
+#
+# The D1 binding below is the only thing that must exist for the forms to work.
+# Everything else (Turnstile, Resend, KV rate limiting) is optional and is set
+# as a secret or variable in the Cloudflare dashboard - see DEPLOY.md.
+
+name = "my-health-scanner"
+main = "src/index.js"
+compatibility_date = "2026-01-15"
+
+# Serve on <name>.<subdomain>.workers.dev. A project created through the
+# dashboard's Workers Builds flow does not always enable this, which leaves the
+# deploy succeeding with nothing reachable at the preview URL.
+workers_dev = true
+
+[assets]
+directory = "public"
+# Default html_handling serves /privacy for privacy.html and redirects the .html
+# form to it. Setting it to "none" would stop "/" resolving to index.html, so
+# the links below use the extensionless form instead.
+binding = "ASSETS"
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mhs-prelaunch"
+# Created 2026-09-17 in the Cloudflare dashboard. Not a secret: it identifies
+# the database, it does not grant access to it.
+database_id = "9927d2a2-9e79-4c33-a5e6-4e69e026c6e7"
+
+# Optional: KV namespace used for rate limiting and single-use captcha tokens.
+# Create it in the dashboard under Storage & Databases > KV, then uncomment and
+# paste the namespace id here.
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+# Public, non-secret values only. Secrets go in the dashboard.

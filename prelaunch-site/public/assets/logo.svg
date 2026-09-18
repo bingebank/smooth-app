@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="My Health Scanner">
+  <defs>
+    <linearGradient id="mhs-leaf" x1="0.15" y1="0.9" x2="0.85" y2="0.1">
+      <stop offset="0" stop-color="#4E9E36"/>
+      <stop offset=".55" stop-color="#6FBF4A"/>
+      <stop offset="1" stop-color="#9BDC6A"/>
+    </linearGradient>
+  </defs>
+  <!-- leaf blade -->
+  <path fill="url(#mhs-leaf)"
+        d="M11 55C9 30 24 10 55 8c2 26-12 45-44 47Z"/>
+  <!-- stem -->
+  <path fill="none" stroke="#3F8A2C" stroke-width="3.4" stroke-linecap="round"
+        d="M11 55 6 60"/>
+  <!-- midrib and two veins -->
+  <g fill="none" stroke="#2F6B21" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 54 43 21"/>
+    <path d="M25 41 24 28"/>
+    <path d="M25 41 38 40"/>
+  </g>
+</svg>
