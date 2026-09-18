@@ -20,7 +20,7 @@ STATUS = ('<div class="pv__status"><span>9:41</span><span class="pv__status-icon
           '<svg width="18" height="12"><use href="#i-sig"/></svg>'
           '<svg width="16" height="12"><use href="#i-wifi"/></svg>'
           '<svg width="26" height="12"><use href="#i-batt"/></svg></span></div>')
-JAR = '<div class="pv-jar{mod}"><i class="pv-jar__lid"></i><i class="pv-jar__body"></i><i class="pv-jar__label"><span></span><span></span></i></div>'
+TUB = '<div class="pv-tub{mod}"><i class="pv-tub__lid"></i><i class="pv-tub__body"></i><i class="pv-tub__label"><span></span><span></span><span></span></i></div>'
 TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="m5 13 4.5 4.5L19 7"/></svg>'
 CHEV = '<svg class="pv-row__chev"><use href="#i-chev"/></svg>'
 
@@ -48,25 +48,25 @@ def product_result():
     return f'''<div class="pv">{STATUS}{nav('Product Result')}
   <div class="pv__body">
     <div style="text-align:center;margin:2px 0 10px">
-      {JAR.format(mod=' pv-jar--lg').replace('<div class="pv-jar pv-jar--lg"','<div class="pv-jar pv-jar--lg" style="margin:0 auto 8px"')}
-      <div style="font-size:20px;font-weight:600;color:var(--s-green-900)">Organic Almond Butter</div>
-      <div style="font-size:13px;color:var(--s-ink-3);margin-top:3px">Laura&#39;s Naturals &middot; 16 oz</div>
+      {TUB.format(mod=' pv-tub--lg').replace('<div class="pv-tub pv-tub--lg"','<div class="pv-tub pv-tub--lg" style="margin:0 auto 8px"')}
+      <div style="font-size:20px;font-weight:600;color:var(--s-green-900)">Greek Yogurt, Plain</div>
+      <div style="font-size:13px;color:var(--s-ink-3);margin-top:3px">Chobani &middot; 0% milkfat &middot; 32 oz</div>
     </div>
     <div class="pv-scores">
-      <div class="pv-score"><div class="pv-score__label">Overall Score</div>{ring(60,'var(--s-fair)','135.7')}<div class="pv-score__verdict" style="color:var(--s-fair)">Fair</div></div>
-      <div class="pv-score"><div class="pv-score__label">Your Score</div>{ring(41,'var(--s-rose)','92.7')}<div class="pv-score__verdict" style="color:var(--s-rose)">Not for you</div></div>
+      <div class="pv-score"><div class="pv-score__label">Overall Score</div>{ring(88,'var(--s-good)','199.1')}<div class="pv-score__verdict" style="color:var(--s-good)">Excellent</div></div>
+      <div class="pv-score"><div class="pv-score__label">Your Score</div>{ring(52,'var(--s-rose)','117.6')}<div class="pv-score__verdict" style="color:var(--s-rose)">Not for you</div></div>
     </div>
     <div class="pv-chips" style="margin:10px 0 12px">
+      <span class="pv-chip pv-chip--safe">{TICK}No Added Sugar</span>
       <span class="pv-chip pv-chip--safe">{TICK}Gluten Free</span>
-      <span class="pv-chip pv-chip--safe">{TICK}Seed Oil Free</span>
-      <span class="pv-chip pv-chip--safe">{TICK}Organic</span>
+      <span class="pv-chip pv-chip--safe">{TICK}Non-GMO</span>
     </div>
     <h4>Why this score?</h4>
-    {row('i-leaf','Ingredients Quality','7/10')}
-    {row('i-flask','Additives &amp; Preservatives','8/10')}
-    {row('i-chart','Nutrition Value','6/10','limit')}
-    {row('i-gear','Processing Level','5/10','limit')}
-    {row('i-shield','Allergens','4/10','limit')}
+    {row('i-leaf','Ingredients Quality','10/10')}
+    {row('i-flask','Additives &amp; Preservatives','10/10')}
+    {row('i-chart','Nutrition Value','9/10')}
+    {row('i-gear','Processing Level','9/10')}
+    {row('i-shield','Allergens','6/10','limit')}
   </div>
   <div class="pv__foot"><div class="pv-btn">Save to My Products</div></div>
 </div>'''
@@ -74,24 +74,23 @@ def product_result():
 def ingredient_alert():
     return f'''<div class="pv">{STATUS}{nav('Ingredient Alert')}
   <div class="pv__body">
-    <div class="pv-card pv-product">{JAR.format(mod='')}
-      <div><div class="pv-product__name">Organic Almond Butter</div><div class="pv-product__brand">Laura&#39;s Naturals</div></div>
+    <div class="pv-card pv-product">{TUB.format(mod='')}
+      <div><div class="pv-product__name">Greek Yogurt, Plain</div><div class="pv-product__brand">Chobani</div></div>
     </div>
     <div class="pv-alert pv-alert--avoid" style="margin-top:12px">
       <span class="pv-alert__dot"><svg><use href="#i-bang"/></svg></span>
-      <div><div class="pv-alert__title">Contains Added Sugar</div><div class="pv-alert__sub">Cane sugar is the third ingredient &mdash; against your low-sugar goal.</div></div>
+      <div><div class="pv-alert__title">Contains Dairy</div><div class="pv-alert__sub">Cultured nonfat milk &mdash; you&rsquo;ve flagged lactose.</div></div>
     </div>
     <h4 style="margin-top:18px">Key Ingredients</h4>
     <div class="pv-chips">
-      <span class="pv-chip pv-chip--safe">Almonds</span><span class="pv-chip pv-chip--avoid">Cane Sugar</span>
-      <span class="pv-chip pv-chip--limit">Palm Oil</span><span class="pv-chip pv-chip--safe">Sea Salt</span>
-      <span class="pv-chip pv-chip--limit">Tree Nuts</span>
+      <span class="pv-chip pv-chip--avoid">Nonfat Milk</span><span class="pv-chip pv-chip--safe">Live Cultures</span>
+      <span class="pv-chip pv-chip--avoid">Lactose</span><span class="pv-chip pv-chip--safe">No Additives</span>
     </div>
     <h4 style="margin-top:18px">Your Personal Warnings</h4>
-    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px">Added sugar</div>
-      <div class="pv-alert__sub">You&#39;re tracking low sugar &mdash; this costs you 19 points.</div></div>
-    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px;color:var(--s-gold-ink)">Use with caution</div>
-      <div class="pv-alert__sub">Palm oil is limited in your plan.</div></div>
+    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px">Lactose</div>
+      <div class="pv-alert__sub">You&#39;ve flagged lactose &mdash; this costs you 36 points.</div></div>
+    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px;color:var(--s-gold-ink)">Try this instead</div>
+      <div class="pv-alert__sub">A lactose-free Greek yogurt scores 91 for you.</div></div>
   </div>
   <div class="pv__foot"><div class="pv-legend">
     <div><i class="d" style="background:var(--s-good)"></i>Safe</div>
@@ -174,7 +173,7 @@ def shopping_list():
     <div class="pv-group">Pantry</div>
     {item('Oats (rolled)', done=True)}{item('Almond Butter', done=True, swap='Swap: no sugar')}{item('Olive Oil')}
     <div class="pv-group">Dairy</div>
-    {item('Greek Yogurt (plain)', done=True)}{item('Almond Milk (unsweetened)')}
+    {item('Greek Yogurt (plain)', swap='Swap: lactose-free')}{item('Almond Milk (unsweetened)')}
     <div class="pv-group">Protein</div>
     {item('Eggs (pasture-raised)')}{item('Wild Salmon', swap='Swap: Frozen')}
   </div>
@@ -260,7 +259,7 @@ SCAN_SECTION = """
       <a class="btn btn--light" href="#signup">Get early access</a>
     </div>
     <figure class="scanband__art">
-      <img src="/assets/scanner-mockup.jpg" alt="My Health Scanner open on a phone, scanning a tub of yogurt on a supermarket shelf." width="1024" height="1536" loading="lazy" decoding="async">
+      <img src="/assets/scanner-mockup.jpg" alt="My Health Scanner open on a phone, scanning a tub of Chobani Greek Yogurt on a supermarket shelf." width="1600" height="2400" loading="lazy" decoding="async">
       <div class="scanband__beam" aria-hidden="true"></div>
     </figure>
   </div>

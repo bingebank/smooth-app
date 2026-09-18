@@ -114,24 +114,29 @@
 .pv-product__name{font-size:15px; font-weight:600; color:var(--s-green-900)}
 .pv-product__brand{font-size:13px; color:var(--s-ink-3); margin-top:2px}
 
-/* A jar, drawn rather than photographed. */
-.pv-jar{width:44px; height:54px; flex:none; position:relative}
-.pv-jar__lid{position:absolute; top:0; left:7px; right:7px; height:10px; border-radius:4px 4px 2px 2px;
-  background:linear-gradient(#7A5630,#4A2F16); box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}
-.pv-jar__body{position:absolute; top:8px; left:1px; right:1px; bottom:0;
-  border-radius:7px 7px 10px 10px;
+/* The scanned product, drawn rather than photographed: a yogurt tub. */
+.pv-tub{width:48px; height:56px; flex:none; position:relative}
+.pv-tub__lid{position:absolute; top:0; left:0; right:0; height:8px; border-radius:5px 5px 2px 2px;
+  background:linear-gradient(#FFFFFF 0 42%,#E4E8E1 43%,#CED4CB);
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,.12)}
+.pv-tub__body{position:absolute; top:7px; left:2px; right:2px; bottom:0;
+  clip-path:polygon(0 0,100% 0,89% 100%,11% 100%);
   background:
-    linear-gradient(105deg, rgba(255,255,255,.34) 0 14%, rgba(255,255,255,0) 32%),
-    linear-gradient(#C48A44,#A2652C 55%,#7E4A1C);
-  box-shadow:inset 0 -3px 5px rgba(0,0,0,.18);
-}
-.pv-jar__label{position:absolute; left:4px; right:4px; bottom:7px; height:22px; border-radius:4px;
-  background:linear-gradient(#FBF4E6,#EFE3CC);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
-  box-shadow:0 1px 2px rgba(0,0,0,.14)}
-.pv-jar__label span{width:18px; height:3px; border-radius:2px; background:var(--s-green-600); opacity:.6}
-.pv-jar__label span:last-child{width:11px; opacity:.32}
-.pv-jar--lg{width:58px; height:70px}
+    linear-gradient(102deg, rgba(255,255,255,.6) 0 14%, rgba(255,255,255,0) 32%),
+    linear-gradient(#FCF8EE,#F1E9D8 62%,#E2D8C1)}
+.pv-tub__label{position:absolute; left:6px; right:6px; top:15px; height:24px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px}
+.pv-tub__label span{flex:none; border-radius:1.5px; background:var(--s-green-900)}
+.pv-tub__label span:nth-child(1){width:30px; height:5px}
+.pv-tub__label span:nth-child(2){width:22px; height:3px; opacity:.55}
+.pv-tub__label span:nth-child(3){width:13px; height:3px; opacity:.4}
+.pv-tub--lg{width:64px; height:74px}
+.pv-tub--lg .pv-tub__lid{height:10px; border-radius:6px 6px 2px 2px}
+.pv-tub--lg .pv-tub__body{top:9px}
+.pv-tub--lg .pv-tub__label{top:21px; height:32px; gap:4px}
+.pv-tub--lg .pv-tub__label span:nth-child(1){width:40px; height:7px}
+.pv-tub--lg .pv-tub__label span:nth-child(2){width:29px; height:4px}
+.pv-tub--lg .pv-tub__label span:nth-child(3){width:17px; height:4px}
 
 /* ─────────── score rings ─────────── */
 .pv-scores{display:flex; align-items:stretch; margin:2px 0 0}
