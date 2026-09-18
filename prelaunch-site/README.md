@@ -40,6 +40,20 @@ prelaunch-site/
 └── wrangler.toml
 ```
 
+## Building the page
+
+`public/index.html` is generated, not hand-edited:
+
+```bash
+python3 scripts/build-screens.py   # src/index.template.html -> public/index.html
+npm run csp-hash                   # only if the JSON-LD block changed
+```
+
+The app screens appear eleven times across the page, so they live once in
+`scripts/build-screens.py` and get stamped into the template. Edit page copy in
+`src/index.template.html`; edit a screen in the build script. Editing
+`public/index.html` directly means your change is lost on the next build.
+
 ## Local development
 
 ```bash
