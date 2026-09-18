@@ -49,24 +49,24 @@ def product_result():
   <div class="pv__body">
     <div style="text-align:center;margin:2px 0 10px">
       {JAR.format(mod=' pv-jar--lg').replace('<div class="pv-jar pv-jar--lg"','<div class="pv-jar pv-jar--lg" style="margin:0 auto 8px"')}
-      <div style="font-size:20px;font-weight:600;color:var(--s-green-900)">Raw Wildflower Honey</div>
-      <div style="font-size:13px;color:var(--s-ink-3);margin-top:3px">Laura&#39;s Naturals &middot; 12 oz</div>
+      <div style="font-size:20px;font-weight:600;color:var(--s-green-900)">Organic Almond Butter</div>
+      <div style="font-size:13px;color:var(--s-ink-3);margin-top:3px">Laura&#39;s Naturals &middot; 16 oz</div>
     </div>
     <div class="pv-scores">
-      <div class="pv-score"><div class="pv-score__label">Overall Score</div>{ring(78,'var(--s-good)','176.4')}<div class="pv-score__verdict" style="color:var(--s-good)">Good</div></div>
-      <div class="pv-score"><div class="pv-score__label">Your Score</div>{ring(34,'var(--s-rose)','76.9')}<div class="pv-score__verdict" style="color:var(--s-rose)">Not for you</div></div>
+      <div class="pv-score"><div class="pv-score__label">Overall Score</div>{ring(60,'var(--s-fair)','135.7')}<div class="pv-score__verdict" style="color:var(--s-fair)">Fair</div></div>
+      <div class="pv-score"><div class="pv-score__label">Your Score</div>{ring(41,'var(--s-rose)','92.7')}<div class="pv-score__verdict" style="color:var(--s-rose)">Not for you</div></div>
     </div>
     <div class="pv-chips" style="margin:10px 0 12px">
-      <span class="pv-chip pv-chip--safe">{TICK}Single Ingredient</span>
-      <span class="pv-chip pv-chip--safe">{TICK}No Additives</span>
-      <span class="pv-chip pv-chip--safe">{TICK}Raw</span>
+      <span class="pv-chip pv-chip--safe">{TICK}Gluten Free</span>
+      <span class="pv-chip pv-chip--safe">{TICK}Seed Oil Free</span>
+      <span class="pv-chip pv-chip--safe">{TICK}Organic</span>
     </div>
     <h4>Why this score?</h4>
-    {row('i-leaf','Ingredients Quality','10/10')}
-    {row('i-flask','Additives &amp; Preservatives','10/10')}
-    {row('i-chart','Nutrition Value','3/10','limit')}
-    {row('i-gear','Processing Level','9/10')}
-    {row('i-shield','Allergens','8/10')}
+    {row('i-leaf','Ingredients Quality','7/10')}
+    {row('i-flask','Additives &amp; Preservatives','8/10')}
+    {row('i-chart','Nutrition Value','6/10','limit')}
+    {row('i-gear','Processing Level','5/10','limit')}
+    {row('i-shield','Allergens','4/10','limit')}
   </div>
   <div class="pv__foot"><div class="pv-btn">Save to My Products</div></div>
 </div>'''
@@ -75,22 +75,23 @@ def ingredient_alert():
     return f'''<div class="pv">{STATUS}{nav('Ingredient Alert')}
   <div class="pv__body">
     <div class="pv-card pv-product">{JAR.format(mod='')}
-      <div><div class="pv-product__name">Raw Wildflower Honey</div><div class="pv-product__brand">Laura&#39;s Naturals</div></div>
+      <div><div class="pv-product__name">Organic Almond Butter</div><div class="pv-product__brand">Laura&#39;s Naturals</div></div>
     </div>
     <div class="pv-alert pv-alert--avoid" style="margin-top:12px">
       <span class="pv-alert__dot"><svg><use href="#i-bang"/></svg></span>
-      <div><div class="pv-alert__title">High in Natural Sugars</div><div class="pv-alert__sub">17g per tablespoon &mdash; against your low-sugar goal.</div></div>
+      <div><div class="pv-alert__title">Contains Added Sugar</div><div class="pv-alert__sub">Cane sugar is the third ingredient &mdash; against your low-sugar goal.</div></div>
     </div>
     <h4 style="margin-top:18px">Key Ingredients</h4>
     <div class="pv-chips">
-      <span class="pv-chip pv-chip--safe">Raw Honey</span><span class="pv-chip pv-chip--avoid">Natural Sugars</span>
-      <span class="pv-chip pv-chip--safe">Bee Pollen</span><span class="pv-chip pv-chip--safe">Propolis</span>
+      <span class="pv-chip pv-chip--safe">Almonds</span><span class="pv-chip pv-chip--avoid">Cane Sugar</span>
+      <span class="pv-chip pv-chip--limit">Palm Oil</span><span class="pv-chip pv-chip--safe">Sea Salt</span>
+      <span class="pv-chip pv-chip--limit">Tree Nuts</span>
     </div>
     <h4 style="margin-top:18px">Your Personal Warnings</h4>
-    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px">Sugar load</div>
-      <div class="pv-alert__sub">One tablespoon is most of your daily allowance.</div></div>
-    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px;color:var(--s-gold-ink)">Good product, wrong fit</div>
-      <div class="pv-alert__sub">Nothing here is bad &mdash; it just isn&#39;t for your plan.</div></div>
+    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px">Added sugar</div>
+      <div class="pv-alert__sub">You&#39;re tracking low sugar &mdash; this costs you 19 points.</div></div>
+    <div class="pv-card"><div class="pv-alert__title" style="font-size:14px;color:var(--s-gold-ink)">Use with caution</div>
+      <div class="pv-alert__sub">Palm oil is limited in your plan.</div></div>
   </div>
   <div class="pv__foot"><div class="pv-legend">
     <div><i class="d" style="background:var(--s-good)"></i>Safe</div>
